@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#0b0e0a" />
+  <meta name="description" content="Iron Front — a combined-arms browser battle game with tanks, artillery, humvees, infantry, snipers and fighter jets." />
+  <title>IRON FRONT // Combined Arms Command</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <symbol id="icon-rifleman" viewBox="0 0 48 48">
+      <circle cx="18.5" cy="10.5" r="4.4"/>
+      <path d="M10.5 39v-8.6c0-5 3.7-8.4 8.5-8.4s8.5 3.4 8.5 8.4V39"/>
+      <path d="M25 28.5l17 3.2M34 29.7l1 4.8"/>
+      <path d="M14.7 39v6M22.8 39v6"/>
+    </symbol>
+    <symbol id="icon-sniper" viewBox="0 0 48 48">
+      <circle cx="17.5" cy="11.5" r="4"/>
+      <path d="M10 39v-7.2c0-4.7 3.4-8 7.8-8 3.2 0 5.8 1.7 7 4.5"/>
+      <path d="M20.5 30.5l21-3.6M24 29l-2 5"/>
+      <circle cx="35.5" cy="15.3" r="5.2"/>
+      <path d="M35.5 7.5v4M35.5 19.1v4M27.7 15.3h4M39.3 15.3h4"/>
+      <path d="M13.5 39v6M20 39v6"/>
+    </symbol>
+    <symbol id="icon-humvee" viewBox="0 0 48 48">
+      <path d="M5 30.5l3.2-9.8 7.1-4.8h17.6l7.6 7.6 2.5 2.7v7.3H5z"/>
+      <path d="M15.7 16.4v12.7M10 23.5h29"/>
+      <circle cx="14" cy="34.3" r="4.2"/>
+      <circle cx="36" cy="34.3" r="4.2"/>
+      <path d="M22 12.5l4 4M31 20l3 3"/>
+    </symbol>
+    <symbol id="icon-tank" viewBox="0 0 48 48">
+      <path d="M3.5 29.5h41v7.2h-41z"/>
+      <path d="M10 22h15.5l3.2-3.2h7.8l4.8 7.4H10z"/>
+      <path d="M29.5 20.8H46v2.8H29.5z"/>
+      <circle cx="10" cy="35.5" r="2.2"/><circle cx="18" cy="35.5" r="2.2"/><circle cx="26" cy="35.5" r="2.2"/><circle cx="34" cy="35.5" r="2.2"/><circle cx="42" cy="35.5" r="2.2"/>
+      <path d="M19 13.5l4.5-2.4 4.5 2.4"/>
+    </symbol>
+    <symbol id="icon-artillery" viewBox="0 0 48 48">
+      <circle cx="15" cy="32.5" r="5.6"/>
+      <circle cx="15" cy="32.5" r="2"/>
+      <path d="M15 27l23-15 2.4 3.4-23 15z"/>
+      <path d="M15 32.5L5.5 42M15 32.5L25 42"/>
+      <path d="M19 30.5l-5.5 9M27 26l6 2.5"/>
+      <path d="M11 21.5h10v3H11z"/>
+    </symbol>
+    <symbol id="icon-fighter" viewBox="0 0 48 48">
+      <path d="M24 3.5l4.2 14.3L45 27.5v3.8l-16.8-3.8-2.2 9.1 6.2 4.3v3.3L24 41.6l-8.2 2.6v-3.3l6.2-4.3-2.2-9.1L3 31.3v-3.8l16.8-9.7z"/>
+      <path d="M24 9v28"/>
+    </symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="icon-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8c2.2 2.2 2.2 5.8 0 8M19 5.5c3.6 3.6 3.6 9.4 0 13"/></symbol>
+    <symbol id="icon-mute" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3c.4-1.6 1.7-2.5 3.2-2.2 1.5.2 2.5 1.5 2.2 3-.2 1.2-1.1 1.7-2.1 2.2-.7.4-.8.8-.8 1.7"/><circle cx="12" cy="17.4" r=".7" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="M7 4.5l12 7.5-12 7.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-restart" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4v5h5"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="M13 2L5 14h6l-1 8 9-13h-6z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  </defs>
+</svg>
+
+<main id="app">
+  <canvas id="battlefield" aria-label="Iron Front battlefield"></canvas>
+  <div class="world-fx" aria-hidden="true">
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- ======================= IN-GAME HUD ======================= -->
+  <div id="gameHud" class="hud" aria-hidden="true">
+    <header class="topbar">
+      <section class="mission-id panel-cut">
+        <div class="eyebrow"><span class="live-dot"></span> OP. DUST HAMMER</div>
+        <div class="mission-row">
+          <strong id="clockValue">00:00</strong>
+          <span class="divider"></span>
+          <div class="wave-stack">
+            <span class="micro-label">THREAT WAVE</span>
+            <b id="waveValue">01</b>
+          </div>
+          <span class="divider"></span>
+          <div class="wave-stack">
+            <span class="micro-label">NEXT CONTACT</span>
+            <b id="contactValue">00:10</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="force-status panel-cut" aria-label="Base integrity">
+        <div class="force-line">
+          <span class="force-name"><i class="team-dot friendly"></i> FOB ANVIL</span>
+          <div class="integritybar"><i id="playerHqFill"></i></div>
+          <b id="playerHqText">100%</b>
+        </div>
+        <div class="force-line hostile">
+          <span class="force-name"><i class="team-dot hostile"></i> CITADEL</span>
+          <div class="integritybar"><i id="enemyHqFill"></i></div>
+          <b id="enemyHqText">100%</b>
+        </div>
+        <div class="force-counts"><span id="allyCount">0 ALLIED</span><span class="vs">VS</span><span id="enemyCount">0 HOSTILE</span></div>
+      </section>
+
+      <section class="tool-cluster">
+        <button class="icon-button" id="muteBtn" aria-label="Toggle sound" title="Sound (M)">
+          <svg><use href="#icon-sound"></use></svg>
+        </button>
+        <button class="icon-button" id="helpBtn" aria-label="How to play" title="Field manual (H)">
+          <svg><use href="#icon-help"></use></svg>
+        </button>
+        <button class="icon-button" id="pauseBtn" aria-label="Pause game" title="Pause (Space)">
+          <svg><use href="#icon-pause"></use></svg>
+        </button>
+      </section>
+    </header>
+
+    <aside class="objective panel-cut">
+      <div class="eyebrow">PRIMARY OBJECTIVE</div>
+      <div class="objective-title"><svg><use href="#icon-target"></use></svg> Level the Citadel</div>
+      <p>Push combined arms across the valley and destroy the enemy command fortress.</p>
+      <div class="objective-meta"><span>FOB INTEGRITY</span><b id="objectiveHp">100%</b></div>
+      <div class="objective-track"><i id="objectiveTrack"></i></div>
+    </aside>
+
+    <div class="wave-banner" id="waveBanner" aria-live="polite">
+      <span class="wave-kicker">HOSTILE CONTACT</span>
+      <strong id="waveBannerTitle">WAVE 01</strong>
+      <span class="wave-sub" id="waveBannerSub">MECHANIZED SCOUTS INBOUND</span>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+    <div class="kill-feed" id="killFeed"></div>
+
+    <footer class="commandbar">
+      <section class="cp-block">
+        <div class="cp-top">
+          <span class="eyebrow">COMMAND POINTS</span>
+          <span class="cp-income">+<b id="cpRate">1.8</b>/S</span>
+        </div>
+        <div class="cp-readout"><strong id="cpValue">12</strong><span>/ 20</span></div>
+        <div class="cp-track"><i id="cpFill"></i><span class="cp-ticks"></span></div>
+        <div class="cp-note"><span class="pulse-dot"></span> ACCRUING FIELD AUTHORITY</div>
+      </section>
+
+      <section class="tray-block">
+        <div class="tray-head">
+          <span>DEPLOYMENT ROSTER</span>
+          <span id="selectionHint">SELECT A UNIT TO DEPLOY</span>
+        </div>
+        <div class="unit-tray" id="unitTray">
+          <button class="unit-card" data-unit="rifleman" aria-label="Deploy Rifleman, 2 command points">
+            <span class="hotkey">1</span><span class="cost">2<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-rifleman"></use></svg>
+            <span class="unit-name">RIFLEMAN</span><span class="unit-role">LINE INFANTRY</span>
+            <span class="card-scan"></span>
+          </button>
+          <button class="unit-card" data-unit="sniper" aria-label="Deploy Sniper, 3 command points">
+            <span class="hotkey">2</span><span class="cost">3<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-sniper"></use></svg>
+            <span class="unit-name">SNIPER</span><span class="unit-role">LONG RANGE</span>
+            <span class="card-scan"></span>
+          </button>
+          <button class="unit-card" data-unit="humvee" aria-label="Deploy Humvee, 4 command points">
+            <span class="hotkey">3</span><span class="cost">4<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-humvee"></use></svg>
+            <span class="unit-name">HUMVEE</span><span class="unit-role">FAST ATTACK</span>
+            <span class="card-scan"></span>
+          </button>
+          <button class="unit-card" data-unit="tank" aria-label="Deploy Battle Tank, 6 command points">
+            <span class="hotkey">4</span><span class="cost">6<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-tank"></use></svg>
+            <span class="unit-name">TANK</span><span class="unit-role">MAIN BATTLE</span>
+            <span class="card-scan"></span>
+          </button>
+          <button class="unit-card" data-unit="artillery" aria-label="Deploy Artillery, 7 command points">
+            <span class="hotkey">5</span><span class="cost">7<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-artillery"></use></svg>
+            <span class="unit-name">ARTILLERY</span><span class="unit-role">SIEGE SUPPORT</span>
+            <span class="card-scan"></span>
+          </button>
+          <button class="unit-card support-card" data-unit="fighter" aria-label="Call an Airstrike, 8 command points">
+            <span class="hotkey">6</span><span class="cost">8<span>CP</span></span>
+            <svg class="unit-icon"><use href="#icon-fighter"></use></svg>
+            <span class="unit-name">FIGHTER JET</span><span class="unit-role">AIR STRIKE</span>
+            <span class="cooldown-mask" id="jetCooldownMask"><i></i></span>
+            <span class="cooldown-text" id="jetCooldownText"></span>
+            <span class="card-scan"></span>
+          </button>
+        </div>
+      </section>
+
+      <section class="tactical-block">
+        <span class="eyebrow">TACTICAL NOTE</span>
+        <p id="tacticalTip">Deploy into the green zone. Units advance and engage automatically.</p>
+        <div class="control-hints">
+          <span><kbd>1-6</kbd> SELECT</span>
+          <span><kbd>RMB</kbd> CANCEL</span>
+          <span><kbd>SPACE</kbd> PAUSE</span>
+        </div>
+      </section>
+    </footer>
+
+    <div class="deploy-disc" id="deployDisc" aria-hidden="true">
+      <span class="disc-ring"></span>
+      <span class="disc-label">DEPLOYMENT ZONE</span>
+    </div>
+  </div>
+
+  <!-- ======================= START SCREEN ======================= -->
+  <section id="startScreen" class="screen start-screen is-active" aria-label="Start screen">
+    <div class="start-noise"></div>
+    <header class="start-top">
+      <div class="brand">
+        <span class="brand-mark"><svg><use href="#icon-fighter"></use></svg></span>
+        <span>FIELD OPS <b>// 07</b></span>
+      </div>
+      <div class="start-top-right"><span class="live-dot"></span> LIVE COMBAT SIMULATION <span class="build">BUILD 6.4</span></div>
+    </header>
+
+    <div class="start-grid">
+      <div class="start-copy">
+        <div class="kicker"><span>OPERATION DUST HAMMER</span><i></i><span>SECTOR 14</span></div>
+        <h1><span>IRON</span><span class="outline">FRONT</span></h1>
+        <div class="subtitle">COMBINED ARMS COMMAND</div>
+        <p class="lead">A hostile citadel has locked down the valley. Break the line with infantry, armor, artillery — and air power.</p>
+        <div class="mission-brief">
+          <div class="brief-item"><span>01</span><div><b>HOLD FOB ANVIL</b><small>Your command post is the last line.</small></div></div>
+          <div class="brief-item"><span>02</span><div><b>SPEND COMMAND POINTS</b><small>Call in six classes of military hardware.</small></div></div>
+          <div class="brief-item"><span>03</span><div><b>DESTROY THE CITADEL</b><small>Push east. Leave nothing standing.</small></div></div>
+        </div>
+        <div class="start-actions">
+          <button id="startBtn" class="primary-btn">
+            <span class="btn-icon"><svg><use href="#icon-play"></use></svg></span>
+            <span class="btn-copy"><b>DEPLOY FORCES</b><small>BEGIN OPERATION</small></span>
+            <span class="btn-bar"></span>
+          </button>
+          <button id="briefBtn" class="ghost-btn">FIELD MANUAL</button>
+        </div>
+        <div class="start-hints"><span>MOUSE + KEYBOARD</span><span class="hint-sep">/</span><span>TOUCH READY</span><span class="hint-sep">/</span><span>PROCEDURAL AUDIO</span></div>
+      </div>
+
+      <aside class="intel-panel">
+        <div class="intel-head"><span>THREAT DOSSIER</span><span class="intel-code">CITADEL-C</span></div>
+        <div class="radar">
+          <div class="radar-grid"></div>
+          <div class="radar-sweep"></div>
+          <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span><span class="blip b4"></span>
+          <span class="radar-cross"></span>
+          <span class="radar-label">THERMAL / 2KM</span>
+        </div>
+        <div class="intel-row"><span class="threat-tag">ARMOR</span><b>2 x MBT</b><span class="threat-level high">HIGH</span></div>
+        <div class="intel-row"><span class="threat-tag">ARTILLERY</span><b>M777 BATTERY</b><span class="threat-level med">MED</span></div>
+        <div class="intel-row"><span class="threat-tag">INFANTRY</span><b>MIXED PLATOON</b><span class="threat-level med">MED</span></div>
+        <div class="intel-row"><span class="threat-tag">AIR</span><b>ROTARY / FAST JET</b><span class="threat-level low">LOW</span></div>
+        <div class="intel-footer"><span>INTEL CONFIDENCE</span><b>78%</b></div>
+      </aside>
+    </div>
+
+    <footer class="start-footer">
+      <div><span class="status-light"></span> ALL SYSTEMS NOMINAL</div>
+      <div class="start-coords">34° 12' 08" N &nbsp; 43° 55' 21" E</div>
+      <div>© FIELD OPS SIMULATION DIVISION</div>
+    </footer>
+  </section>
+
+  <!-- ======================= HELP ======================= -->
+  <section id="helpScreen" class="screen modal-screen" aria-label="Field manual">
+    <div class="modal-panel">
+      <header class="modal-head">
+        <div><span class="eyebrow">FIELD MANUAL / COMBINED ARMS</span><h2>KNOW YOUR FORCE</h2></div>
+        <button class="close-button" id="closeHelpBtn" aria-label="Close field manual">✕</button>
+      </header>
+      <div class="manual-grid">
+        <article class="manual-card"><span class="manual-num">01</span><svg><use href="#icon-rifleman"></use></svg><h3>RIFLEMAN</h3><p>Cheap, fast line infantry. Mass them to absorb fire and hold a flank.</p><span class="statline">95 HP · 8 DMG · RNG 7</span></article>
+        <article class="manual-card"><span class="manual-num">02</span><svg><use href="#icon-sniper"></use></svg><h3>SNIPER</h3><p>Outranges almost everything. Fragile, so screen them behind armor.</p><span class="statline">75 HP · 34 DMG · RNG 19</span></article>
+        <article class="manual-card"><span class="manual-num">03</span><svg><use href="#icon-humvee"></use></svg><h3>HUMVEE</h3><p>Rapid reaction gun truck. Excellent at shredding infantry and flankers.</p><span class="statline">220 HP · 7 DMG · RNG 9</span></article>
+        <article class="manual-card"><span class="manual-num">04</span><svg><use href="#icon-tank"></use></svg><h3>TANK</h3><p>Armored spearhead. The main battle tank wins direct engagements.</p><span class="statline">560 HP · 55 DMG · SPLASH</span></article>
+        <article class="manual-card"><span class="manual-num">05</span><svg><use href="#icon-artillery"></use></svg><h3>ARTILLERY</h3><p>Indirect siege support. Devastating splash, but blind up close.</p><span class="statline">190 HP · 95 DMG · RNG 27</span></article>
+        <article class="manual-card manual-air"><span class="manual-num">06</span><svg><use href="#icon-fighter"></use></svg><h3>FIGHTER JET</h3><p>Target anywhere. A strafing run of cannon fire and cluster bombs.</p><span class="statline">30 SEC REARM · 8 CP</span></article>
+      </div>
+      <div class="manual-controls">
+        <div><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><span>Select unit</span></div>
+        <div><kbd>LEFT CLICK</kbd><span>Deploy / target</span></div>
+        <div><kbd>RIGHT CLICK</kbd><span>Cancel</span></div>
+        <div><kbd>SPACE</kbd><span>Pause</span></div>
+        <div><kbd>M</kbd><span>Mute</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= PAUSE ======================= -->
+  <section id="pauseScreen" class="screen modal-screen" aria-label="Game paused">
+    <div class="pause-panel">
+      <span class="eyebrow">OPERATION SUSPENDED</span>
+      <h2>PAUSED</h2>
+      <p>The valley waits. Your command points are frozen in time.</p>
+      <button class="primary-btn compact" id="resumeBtn"><span class="btn-icon"><svg><use href="#icon-play"></use></svg></span><span class="btn-copy"><b>RESUME</b><small>BACK TO THE FIGHT</small></span></button>
+      <div class="pause-actions">
+        <button class="ghost-btn" id="pauseHelpBtn">FIELD MANUAL</button>
+        <button class="ghost-btn" id="pauseRestartBtn">RESTART OP</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= RESULT ======================= -->
+  <section id="resultScreen" class="screen result-screen" aria-label="Operation result">
+    <div class="result-ribbon" id="resultRibbon">AFTER ACTION REPORT</div>
+    <div class="result-main">
+      <span class="eyebrow" id="resultKicker">OPERATION COMPLETE</span>
+      <h2 id="resultTitle">VICTORY</h2>
+      <p id="resultCopy">The Citadel has fallen. The valley is ours.</p>
+      <div class="result-stats">
+        <div><span>OPERATION TIME</span><b id="statTime">00:00</b></div>
+        <div><span>HOSTILES NEUTRALIZED</span><b id="statKills">0</b></div>
+        <div><span>FORCES DEPLOYED</span><b id="statDeployed">0</b></div>
+        <div><span>FOB INTEGRITY</span><b id="statHq">100%</b></div>
+      </div>
+      <div class="result-actions">
+        <button class="primary-btn" id="restartBtn"><span class="btn-icon"><svg><use href="#icon-restart"></use></svg></span><span class="btn-copy"><b>REDEPLOY</b><small>RUN OPERATION AGAIN</small></span></button>
+        <button class="ghost-btn" id="resultHelpBtn">FIELD MANUAL</button>
+      </div>
+      <div class="result-stamp" id="resultStamp">MISSION ACCOMPLISHED</div>
+    </div>
+  </section>
+
+  <div id="rotateHint" class="rotate-hint">
+    <svg><use href="#icon-chevron"></use></svg>
+    <span>Rotate for wider command view</span>
+  </div>
+</main>
+
+<script type="module" src="./js/game.js"></script>
+</body>
+</html>
