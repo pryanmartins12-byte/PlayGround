@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101513">
+  <link rel="icon" href="data:,">
+  <title>Mythbound: The Sunken Bell</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">✦</div><div><div class="brand-name">MYTHBOUND</div><div class="brand-sub">FIELD GUIDE · VOL. II</div></div></div>
+      <div class="chapter"><span class="chapter-dot"></span> CHAPTER 04 <b>/</b> THE SUNKEN BELL</div>
+      <button class="icon-button" id="rulesButton" aria-label="How to play" title="How to play">?</button>
+    </header>
+
+    <section class="world-banner" aria-label="The drowned bell marsh">
+      <div class="world-art"><div class="moon"></div><div class="mountains"></div><div class="reeds"></div><div class="bell-art">♟</div><div class="waterline"></div></div>
+      <div class="world-copy"><span class="eyebrow">NEW LEVEL · SUNDERED FEN</span><h1>The Sunken Bell</h1><p>A relic rings beneath the marsh. Silence its keeper before the third toll.</p></div>
+      <div class="world-stamp"><span>4</span><small>DEPTH</small></div>
+      <div class="challenge-pill"><span class="pulse"></span> FRESH CHALLENGE</div>
+    </section>
+
+    <section class="battlefield">
+      <div class="battle-topline"><span><i class="tiny-spark">✦</i> THE BELL-KEEPER</span><span id="turnLabel">YOUR TURN · 1</span></div>
+      <div class="opponent-row">
+        <div class="avatar enemy-avatar"><span>♟</span><i></i></div>
+        <div class="life-block enemy-life"><div class="life-heading"><span>KEEPER OF THE FEN</span><strong id="enemyLifeText">24</strong></div><div class="life-track"><div id="enemyLifeBar" class="life-fill"></div></div><div class="life-note" id="tollNote">THE THIRD TOLL MUST NOT RING</div></div>
+        <div class="bell-counter"><span class="bell-symbol">◉</span><div><b id="tollCount">0 / 3</b><small> TOLLS UNTIL END</small></div><div class="toll-dots" id="tollDots"><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="enemy-board" id="enemyBoard" aria-label="Opponent creatures"></div>
+      <div class="field-divider"><span>✦ &nbsp; THE BLACKWATER &nbsp; ✦</span></div>
+      <div class="player-board" id="playerBoard" aria-label="Your creatures"></div>
+      <div class="player-row">
+        <div class="avatar player-avatar"><span>✧</span><i></i></div>
+        <div class="life-block player-life"><div class="life-heading"><span>WAYFARER</span><strong id="playerLifeText">20</strong></div><div class="life-track"><div id="playerLifeBar" class="life-fill"></div></div><div class="life-note" id="playerStatus">DRAW A CARD · FIND YOUR LINE</div></div>
+        <div class="mana-block"><span class="mana-glyph">◆</span><div><b id="manaText">1 / 1</b><small>MARSH MANA</small></div><div class="mana-pips" id="manaPips"></div></div>
+      </div>
+      <div class="combat-tip" id="combatTip"><span>✦</span> Select a ready creature, then choose <b>ATTACK</b>.</div>
+    </section>
+
+    <section class="lower-panel">
+      <div class="hand-section">
+        <div class="section-heading"><div><span class="eyebrow">YOUR GRIMOIRE</span><h2>Hand <span id="handCount">0</span></h2></div><div class="hand-hint" id="handHint">Choose a card to inspect</div></div>
+        <div class="hand-row" id="handRow"></div>
+      </div>
+      <aside class="side-panel">
+        <div class="side-title"><span class="eyebrow">THE OATH</span><span class="oath-icon">✧</span></div>
+        <h3>Silence the bell.</h3>
+        <p>Defeat the Bell-Keeper before the third toll. Every second enemy turn, the bell strikes and its creatures grow stronger.</p>
+        <div class="toll-track"><span>FIRST</span><span>SECOND</span><span>THIRD</span></div>
+        <div class="side-divider"></div>
+        <div class="echo-info"><span class="echo-mark">↶</span><div><b>NEW · ECHO</b><p>Echo cards in your grave can be cast once more for <strong>+1 mana</strong>.</p></div></div>
+        <div class="graveyard-row"><button id="graveButton" class="grave-button"><span>▤</span> GRAVEYARD <b id="graveCount">0</b></button><button id="endTurn" class="end-turn">END TURN <span>→</span></button></div>
+      </aside>
+    </section>
+    <footer><span>© MYTHBOUND FIELD GUIDE</span><span>ONE LIFE · ONE LAST LIGHT</span><span id="deckCount">LIBRARY 20</span></footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div class="eyebrow" id="modalEyebrow">FIELD NOTES</div><h2 id="modalTitle">How to play</h2><div id="modalBody"></div><div class="modal-actions" id="modalActions"><button class="end-turn" id="modalOkay">GOT IT <span>→</span></button></div></section>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
